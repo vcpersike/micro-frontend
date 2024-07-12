@@ -1,14 +1,26 @@
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './App.css'
-import Button from "microFront01/Button";
+import React from "react";
 
+const Button = React.lazy(() => import('microFront01/Button'));
+const ReactLogo = React.lazy(() => import('microFront01/ReactLogo'));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Button />,
-    children: [],
+    children: [ {
+      index: true,
+      element: (
+        <div>
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <Button />
+            <ReactLogo />
+          </React.Suspense>
+        </div>
+      ),
+    },],
   },
 ]);
 
